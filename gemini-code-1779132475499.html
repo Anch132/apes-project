@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiation Pollution — APES Final Project</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111318;
+    --surface2: #181c24;
+    --accent: #e8ff47;
+    --accent2: #ff6b35;
+    --danger: #ff3f3f;
+    --text: #e8e4d9;
+    --muted: #6b7280;
+    --border: rgba(232,255,71,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Bebas Neue', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: normal;
+  }
+
+  header {
+    padding: 6rem 2rem 4rem;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    background: radial-gradient(circle at 50% 0%, rgba(232,255,71,0.05) 0%, transparent 70%);
+  }
+
+  .badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.25rem 0.75rem;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
+  }
+
+  h1 {
+    font-size: 5rem;
+    line-height: 0.9;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .subtitle {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--muted);
+    font-size: 0.9rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    position: sticky;
+    top: 0;
+    background: rgba(10, 12, 15, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+  }
+
+  .tab-btn:hover {
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .tab-btn.active {
+    color: var(--bg);
+    background: var(--accent);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .tab-content {
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent);
+  }
+
+  .card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+  }
+  
+  .card-img {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 1px solid var(--surface2);
+  }
+  
+  .img-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .quote-block {
+    background: var(--surface2);
+    border-left: 4px solid var(--accent2);
+    padding: 1.5rem;
+    margin: 2rem 0;
+    font-style: italic;
+  }
+
+  .quote-block cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .highlight {
+    color: var(--accent);
+  }
+
+  ul {
+    list-style-type: square;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  li {
+    margin-bottom: 0.5rem;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface);
+  }
+
+  .footer-left {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    color: var(--text);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    h1 { font-size: 3.5rem; }
+    .grid-2 { grid-template-columns: 1fr; }
+    nav { padding: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="badge">APES FINAL PROJECT</div>
+  <h1>Radiation Pollution</h1>
+  <div class="subtitle">By Junseo Lee & Kevin Zou • Investigating causes, ecological impacts, and engineering solutions.</div>
+</header>
+
+<nav>
+  <button class="tab-btn active" onclick="showTab('task1')">Task 1: The Problem</button>
+  <button class="tab-btn" onclick="showTab('task2')">Task 2: History & Causes</button>
+  <button class="tab-btn" onclick="showTab('task3')">Task 3: Ecosystem Effects</button>
+  <button class="tab-btn" onclick="showTab('task4')">Task 4: Ecosystem Services</button>
+  <button class="tab-btn" onclick="showTab('task5')">Task 5: Solutions</button>
+  <button class="tab-btn" onclick="showTab('task6')">Task 6: Conclusion</button>
+</nav>
+
+<div class="container">
+
+  <section id="task1" class="tab-content active">
+    <div class="grid-2">
+      <div class="card">
+        <h3>Defining the Threat</h3>
+        <p>Radiation pollution is the release of radioactive substances into the air, water, or soil. It's a major environmental problem because these radioactive isotopes do not fully break down immediately; instead, they decay slowly over time. This decay process can span years, decades, or even centuries depending on the half-life of the isotope.</p>
+        <p>Radiation pollution primarily falls under the general category of pollution. However, in extreme and catastrophic cases—such as the Chornobyl disaster—radiation pollution fundamentally shifts into the category of <span class="highlight">habitat destruction</span>, rendering massive swaths of land uninhabitable for both humans and wildlife.</p>
+        
+        <div class="quote-block">
+          "Radiation can damage the DNA in our cells. High doses of radiation can cause Acute Radiation Syndrome (ARS) or Cutaneous Radiation Injuries (CRI). High doses of radiation could also lead to cancer later in life."
+          <cite>— United States Environmental Protection Agency (EPA)</cite>
+        </div>
+        <p><strong>Analysis:</strong> As the EPA quote emphasizes, the core issue with radiation is its biological mechanism. It doesn't just poison an organism; it fundamentally alters and damages the genetic blueprint (DNA). This explains why the effects of this pollution are long-lasting and intergenerational, highlighting the severity of the problem.</p>
+      </div>
+      <div class="card">
+        <h3>Global Context</h3>
+        <img src="world map of nuclear power plants.jpg" alt="World Map of Nuclear Power Plants" class="card-img">
+        <div class="img-caption">Figure 1: Global distribution of active nuclear power infrastructure.</div>
+        <p>The map above illustrates the widespread footprint of nuclear power plants globally. Because radiation pollution does not respect borders, a failure at any single facility (due to natural disasters, human error, or aging infrastructure) has the potential to trigger continental-scale ecological consequences. The concentration of these plants in densely populated regions further magnifies the risk.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="task2" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>The Atomic Age & Historical Context</h3>
+        <p>While natural background radiation has always existed, human-driven radiation pollution began in earnest during the mid-1940s with the dawn of the atomic age. Two major research milestones have heavily informed our understanding of radioactive impacts:</p>
+        <ul>
+          <li><strong>The Life Span Study (LSS):</strong> Started in 1947 by the Radiation Effects Research Foundation, this study documented approximately 120,000 survivors of the Hiroshima and Nagasaki bombings. Findings showed a drastic increase in leukemia (4 to 5 times the normal rate), solid cancers, cardiovascular disease, and cataracts.</li>
+          <li><strong>Chornobyl Liquidators (1986):</strong> Observations of the emergency cleanup workers at Chornobyl revealed intense rates of Acute Radiation Syndrome (ARS), severe psychological trauma, and long-term increases in thyroid cancer rates.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Major Causes & Weapons Testing</h3>
+        <img src="number-of-nuclear-weapons-tests.jpg" alt="Number of Nuclear Weapons Tests Graph" class="card-img">
+        <div class="img-caption">Figure 2: The historical spike in nuclear weapons testing during the Cold War era.</div>
+        <p>As visualized in the graph above, human-caused radiation peaked severely during the heavy nuclear weapons testing of the 1950s and 1960s. Aside from weapons testing, modern primary causes include:</p>
+        <ul>
+          <li><strong>Nuclear Energy Accidents:</strong> Meltdowns release volatile isotopes (like Iodine-131 and Cesium-137) into the atmosphere.</li>
+          <li><strong>Improper Waste Disposal:</strong> Leaching of heavy radioactive materials into groundwater.</li>
+          <li><strong>Uranium Mining:</strong> The extraction process produces tailings that blow into the wind or seep into local aquifers, impacting surrounding ecosystems.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="task3" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>Impact on Wildlife & Biology</h3>
+        <p>Radiation pollution disrupts ecosystems from the cellular level up to entire food webs. When radioactive particles settle into soil and water, they are absorbed by primary producers (plants/algae). Through <span class="highlight">biomagnification</span>, these isotopes accumulate in higher concentrations in apex predators.</p>
+        <p>The most devastating ecological effect is chronic DNA mutation. In highly contaminated zones, wildlife suffers from reduced fertility, physical deformities, and drastically shortened lifespans. Animals that rely on specific habitats cannot easily migrate, leaving them trapped in "dead zones" where population replacement cannot keep up with mortality rates.</p>
+      </div>
+      <div class="card">
+        <h3>Case Study: Avian Mortality</h3>
+        <img src="elevated mortality among birds in chernobyl as judged from skewed age and sex ratios.jpg" alt="Elevated Mortality Among Birds in Chernobyl" class="card-img">
+        <div class="img-caption">Figure 3: Data illustrating skewed age and sex ratios among birds in the Chornobyl exclusion zone.</div>
+        <p>The provided chart clearly demonstrates the severe ecological toll on avian populations in Chornobyl. Chronic radiation exposure has resulted in elevated mortality rates, specifically impacting certain age groups and skewing sex ratios. This demographic collapse destabilizes the local ecosystem, proving that even decades after an initial disaster, the lingering radiation prevents natural biological recovery.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="task4" class="tab-content">
+    <div class="card" style="margin-bottom: 2rem;">
+      <h3>Disruption of Ecosystem Services</h3>
+      <p>Radiation pollution doesn't just harm wildlife; it severely compromises the ecosystem services that humans rely on for survival and economic stability.</p>
+      <div class="grid-2" style="margin-top: 1.5rem; margin-bottom: 0;">
+        <div>
+          <h4 class="highlight">Provisioning Services</h4>
+          <p>Radiation directly ruins agriculture. Soil contaminated by heavy isotopes like Strontium-90 cannot be used to grow safe crops, cutting off the supply of food, timber, and raw materials. Livestock grazing on contaminated land produce radioactive meat and milk.</p>
+        </div>
+        <div>
+          <h4 class="highlight">Regulating Services</h4>
+          <p>Ecosystems naturally filter our water and air. However, when watersheds are polluted by radioactive runoff, the environment loses its ability to naturally purify water, leading to long-term groundwater toxicity that endangers human populations.</p>
+        </div>
+        <div>
+          <h4 class="highlight">Cultural Services</h4>
+          <p>Areas of high natural beauty that suffer radiation accidents lose their cultural and recreational value. Ecotourism drops to zero in exclusion zones, and indigenous communities lose their spiritual and historical connection to the land.</p>
+        </div>
+        <div>
+          <h4 class="highlight">Supporting Services</h4>
+          <p>Radiation heavily impairs primary production and nutrient cycling. Soil microbes and decomposers, which are vital for breaking down organic matter, suffer from radiation exposure, slowing down the entire nutrient cycle of the affected biome.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="task5" class="tab-content">
+    <div class="grid-2">
+      <div class="card">
+        <h3>Government Policy & Alternative Energy</h3>
+        <p>To prevent future radiation pollution, strict governmental oversight is required. In the US, frameworks like the <strong>National Environmental Policy Act (NEPA)</strong> require rigorous environmental assessments for nuclear projects. Furthermore, the EPA enforces regulations under the Clean Air Act and Safe Drinking Water Act to cap allowable emissions of radionuclides.</p>
+        
+        <img src="share-electricity-renewables.jpg" alt="Share of Electricity from Renewables" class="card-img" style="margin-top: 1rem;">
+        <div class="img-caption">Figure 4: Global shift towards renewable energy sources.</div>
+        
+        <p>A major preventative solution is transitioning away from reliance on fission energy. As shown in the graph above, increasing the global share of electricity generated by renewables (solar, wind, hydro) actively reduces the demand for nuclear power, thereby mitigating the creation of new radioactive waste.</p>
+      </div>
+      <div class="card">
+        <h3>Engineering Solutions: ONKALO</h3>
+        <img src="onkalo.jpg" alt="ONKALO Nuclear Waste Site Map" class="card-img">
+        <div class="img-caption">Figure 5: Map detailing the ONKALO deep geological repository in Finland.</div>
+        
+        <p>Because existing nuclear waste decays so slowly, it must be stored safely for hundreds of thousands of years. The map above shows the ONKALO nuclear waste site on Olkiluoto Island, Finland. Engineers drilled deep boreholes to study the bedrock before carving out an underground storage facility, representing a cutting-edge engineering solution to isolate high-level waste from the biosphere.</p>
+        
+        <div class="quote-block">
+          "Deep geological repositories are widely accepted as the most sustainable and safe solution for managing high-level nuclear waste."
+          <cite>— International Atomic Energy Agency (IAEA)</cite>
+        </div>
+        <p><strong>Analysis:</strong> This quote perfectly contextualizes the ONKALO project. Instead of temporary surface-level storage—which is vulnerable to climate change, natural disasters, or human interference—burying waste deep within stable geological formations removes the primary cause of future radiation exposure.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="task6" class="tab-content">
+    <div class="card">
+      <h3>Conclusion & Future Steps</h3>
+      <p>Radiation pollution is a severe, long-term environmental crisis caused primarily by nuclear energy accidents, improper waste disposal, uranium mining, and historical nuclear weapons testing. As analyzed throughout this project, its effects are devastating: it damages human health by increasing cancer risks and mutating DNA, while simultaneously destroying ecosystems, triggering demographic collapse in wildlife (such as avian populations), and severely crippling vital ecosystem services like clean water and food production.</p>
+      <p>Because highly contaminated areas remain unsafe for decades or centuries, addressing this issue requires immediate and sustained future steps. First, governments must enforce stricter regulatory policies (like NEPA and EPA standards) regarding nuclear plant maintenance and uranium extraction. Second, we must scale up engineering solutions, specifically the construction of deep geological repositories like Finland's ONKALO, to permanently and safely isolate existing high-level waste. Finally, the most effective long-term preventative step is the continued aggressive investment in, and transition to, renewable energy sources to slowly phase out our reliance on nuclear power.</p>
+      <p>Future progress depends entirely on balancing humanity's growing energy needs with strict environmental safety protocols, ensuring that future generations are protected from the invisible, enduring threat of radioactive contamination.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="footer-left">
+    AP Environmental Science · Final Project · Junseo Lee & Kevin Zou
+  </div>
+  <div style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:var(--muted);">
+    ☢ Radiation Pollution
+  </div>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Animate elements on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
